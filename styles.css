@@ -77,6 +77,11 @@ input[type="number"], input[type="text"]{
 }
 
 .results{margin-top:28px; display:flex; flex-direction:column; gap:12px}
+.save-status{
+  margin-top:10px;
+  font-size:14px;
+  color:#555;
+}
 .ticket{
   display:flex; gap:8px; align-items:center; flex-wrap:wrap;
 }

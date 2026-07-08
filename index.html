@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>로또 추첨기 — 디자인 반영 UI</title>
   <link rel="stylesheet" href="styles.css">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-16BEN81X9W"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-16BEN81X9W');
+  </script>
 </head>
 <body>
   <header class="hero">
@@ -21,9 +30,11 @@
       <input id="seed" type="text" placeholder="정수 입력하면 재현 가능" />
 
       <div class="actions">
-        <button id="generate" class="btn-primary">번호 생성</button>
-        <button id="copy" class="btn-secondary">복사</button>
+        <button id="generate" type="button" class="btn-primary">번호 생성</button>
+        <button id="copy" type="button" class="btn-secondary">복사</button>
+        <button id="save" type="button" class="btn-secondary">저장</button>
       </div>
+      <div id="save-status" class="save-status" aria-live="polite"></div>
     </section>
 
     <section id="results" class="results" aria-live="polite"></section>
@@ -33,6 +44,7 @@
     </section>
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

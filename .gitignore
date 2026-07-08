@@ -1,0 +1,5 @@
+.env
+web/draws.json
+__pycache__/
+*.pyc
+node_modules/
