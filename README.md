@@ -22,5 +22,11 @@ Supabase 연동:
 
 1. Supabase 프로젝트를 만들고 `lotto_draws` 테이블을 생성합니다.
    - 컬럼 예시: `ticket_index` (integer), `seed` (text), `numbers` (integer[]), `formatted` (text)
-2. `index.html`에 포함된 Supabase JS 클라이언트를 유지하고, `app.js`에서 `SUPABASE_URL`과 `SUPABASE_ANON_KEY`를 설정합니다.
-3. 웹 UI에서 번호를 생성한 뒤 `저장` 버튼을 누르면 DB에 기록됩니다.
+2. Vercel 환경변수에 아래 값을 추가합니다.
+   - `SUPABASE_URL`
+   - `SUPABASE_ANON_KEY`
+   - `SUPABASE_TABLE_NAME` `lotto_draws` 권장
+3. 이 저장소는 `/api/env.js`를 통해 Vercel 환경변수를 프론트에 주입합니다.
+4. 웹 UI에서 번호를 생성한 뒤 `저장` 버튼을 누르면 DB에 기록됩니다.
+
+로컬 개발용으로는 `.env.example` 파일을 참고해 `.env`를 구성하면 됩니다.

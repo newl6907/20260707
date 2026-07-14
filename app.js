@@ -37,10 +37,17 @@ function createSupabaseClient(url, key){
   return supabase.createClient(url, key);
 }
 
-const DEFAULT_SUPABASE_URL = 'https://sejsqftsfutxvyzxokow.supabase.co';
-const DEFAULT_SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlanNxZnRzZnV0eHZ5enhva293Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM0NTkyODAsImV4cCI6MjA5OTAzNTI4MH0.9IOZL_zrLddDl_Upxp9LQa-Ip5wJAfsTPJOmV2nmKsM';
+function getRuntimeEnv() {
+  if (typeof window === 'undefined') return {};
+  return window.__ENV__ || {};
+}
 
 document.addEventListener('DOMContentLoaded', ()=>{
+  const runtimeEnv = getRuntimeEnv();
+  const supabaseUrl = runtimeEnv.SUPABASE_URL || '';
+  const supabaseAnonKey = runtimeEnv.SUPABASE_ANON_KEY || '';
+  const supabaseTableName = runtimeEnv.SUPABASE_TABLE_NAME || 'lotto_draws';
+
   const countEl = document.getElementById('count');
   const seedEl = document.getElementById('seed');
   const genBtn = document.getElementById('generate');
@@ -49,7 +56,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const saveStatus = document.getElementById('save-status');
   const results = document.getElementById('results');
   let latestTickets = [];
-  const supabaseClient = createSupabaseClient(DEFAULT_SUPABASE_URL, DEFAULT_SUPABASE_KEY);
+  const supabaseClient = createSupabaseClient(supabaseUrl, supabaseAnonKey);
 
   function render(tickets){
     latestTickets = tickets;
@@ -115,7 +122,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
     try {
       // include .select() to return created rows when available
-      const res = await supabaseClient.from('lotto_draws').insert(payload).select();
+      const res = await supabaseClient.from(supabaseTableName).insert(payload).select();
       console.debug('Supabase insert response:', res);
       if(res.error){
         saveStatus.textContent = `저장 실패: ${res.error.message}`;
